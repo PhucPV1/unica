@@ -171,6 +171,7 @@ function attachSignin(element) {
       fbUserData = {
         full_name: googleUser.getBasicProfile().getName(),
         email: googleUser.getBasicProfile().getEmail(),
+        avatar: googleUser.getBasicProfile().getImageUrl(),
       }
       localStorage.setItem("userDataStorage", JSON.stringify(fbUserData))
       alert("Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây")

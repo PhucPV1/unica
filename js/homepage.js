@@ -10,10 +10,16 @@ function renderLogin() {
   var profileImg = $(".profile-img")
   var profileMenu = $(".profile-menu")
   var logoutBtn = $("#logout")
+  var profileImg = $(".profile-img")
   loginSuccessElement.style.display = "flex"
   loginBtn.style.display = "none"
   signupBtn.style.display = "none"
   usernameElement.innerText = userDataLogin.full_name
+  if (userDataLogin.avatar) {
+    profileImg.setAttribute("src", `${userDataLogin.avatar}`)
+  } else {
+    profileImg.setAttribute("src", "./assets/profile.png")
+  }
   profileImg.onclick = () => {
     profileMenu.classList.toggle("active")
   }
