@@ -127,11 +127,10 @@ window.fbAsyncInit = function () {
 
 function testAPI() {
   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-  FB.api("/me?fields=name,email,profile_pic", function (response) {
+  FB.api("/me?fields=name,email", function (response) {
     fbUserData = {
       full_name: response.name,
       email: response.email,
-      profile_pic: response.profile_pic,
     }
     localStorage.setItem("userDataStorage", JSON.stringify(fbUserData))
     alert("Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây")
@@ -165,10 +164,19 @@ function attachSignin(element) {
     element,
     {},
     function (googleUser) {
-      console.log("Signed in: " + googleUser.getBasicProfile().getId())
-      console.log("Signed in: " + googleUser.getBasicProfile().getName())
-      console.log("Signed in: " + googleUser.getBasicProfile().getEmail())
-      console.log("Signed in: " + googleUser.getBasicProfile().getImageUrl())
+      // console.log("Signed in: " + googleUser.getBasicProfile().getId())
+      // console.log("Signed in: " + googleUser.getBasicProfile().getName())
+      // console.log("Signed in: " + googleUser.getBasicProfile().getEmail())
+      // console.log("Signed in: " + googleUser.getBasicProfile().getImageUrl())
+      fbUserData = {
+        full_name: googleUser.getBasicProfile().getName(),
+        email: googleUser.getBasicProfile().getEmail(),
+      }
+      localStorage.setItem("userDataStorage", JSON.stringify(fbUserData))
+      alert("Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây")
+      setTimeout(() => {
+        window.location = "../"
+      }, 3000)
     }
     // function (error) {
     //   alert(JSON.stringify(error, undefined, 2))
