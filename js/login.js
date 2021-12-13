@@ -127,10 +127,11 @@ window.fbAsyncInit = function () {
 
 function testAPI() {
   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-  FB.api("/me?fields=name,email", function (response) {
+  FB.api("/me?fields=name,email,profile_pic", function (response) {
     fbUserData = {
       full_name: response.name,
       email: response.email,
+      profile_pic: response.profile_pic,
     }
     localStorage.setItem("userDataStorage", JSON.stringify(fbUserData))
     alert("Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây")
@@ -142,3 +143,36 @@ function testAPI() {
 function fblogin() {
   FB.login(statusChangeCallback, { scope: "email,public_profile", return_scopes: true })
 }
+
+/* Google Login */
+var googleUser = {}
+var startApp = function () {
+  gapi.load("auth2", function () {
+    // Retrieve the singleton for the GoogleAuth library and set up the client.
+    auth2 = gapi.auth2.init({
+      client_id: "1080471704850-lhaludep42b8j3rimvh40ebu5n8ai723.apps.googleusercontent.com",
+      cookiepolicy: "single_host_origin",
+      // Request scopes in addition to 'profile' and 'email'
+      //scope: 'additional_scope'
+    })
+    attachSignin(document.getElementById("GGlogin"))
+  })
+}
+
+function attachSignin(element) {
+  // console.log(element.id)
+  auth2.attachClickHandler(
+    element,
+    {},
+    function (googleUser) {
+      console.log("Signed in: " + googleUser.getBasicProfile().getId())
+      console.log("Signed in: " + googleUser.getBasicProfile().getName())
+      console.log("Signed in: " + googleUser.getBasicProfile().getEmail())
+      console.log("Signed in: " + googleUser.getBasicProfile().getImageUrl())
+    }
+    // function (error) {
+    //   alert(JSON.stringify(error, undefined, 2))
+    // }
+  )
+}
+startApp()
