@@ -131,6 +131,7 @@ function testAPI() {
     fbUserData = {
       full_name: response.name,
       email: response.email,
+      avatar: `https://graph.facebook.com/${response.id}/picture?type=square`,
     }
     localStorage.setItem("userDataStorage", JSON.stringify(fbUserData))
     alert("Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây")
