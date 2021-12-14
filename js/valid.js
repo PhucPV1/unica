@@ -196,6 +196,18 @@ Validator.isMinLength = function (selector, min, message) {
     },
   }
 }
+Validator.isStrengthPassword = function (selector, message) {
+  return {
+    selector: selector,
+    check: function (value) {
+      var regexStrengthPassword = /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
+      return regexStrengthPassword.test(value)
+        ? undefined
+        : message ||
+            "Password must have minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+    },
+  }
+}
 Validator.isConfirmPassword = function (selector, checkConfirm, message) {
   return {
     selector: selector,

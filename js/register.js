@@ -20,7 +20,11 @@ Validator({
     Validator.isEmail("#email", "Vui lòng nhập lại email hợp lệ"),
     Validator.isPhoneNumber("#phone_number", "Vui lòng nhập lại số điện thoại hợp lệ "),
     // Validator.isAddress("#address"),
-    Validator.isMinLength("#password", 6, "Vui lòng nhập lại mật khẩu độ dài trên 6 ký tự"),
+    // Validator.isMinLength("#password", 6, "Vui lòng nhập lại mật khẩu độ dài trên 6 ký tự"),
+    Validator.isStrengthPassword(
+      "#password",
+      "Mật khẩu chưa đủ mạnh, phải dài trên 8 ký tự, chứa ít nhất một số, chữ thường, chữ hoa và ký tự đặc biệt"
+    ),
     Validator.isConfirmPassword(
       "#password_confirmation",
       () => {
