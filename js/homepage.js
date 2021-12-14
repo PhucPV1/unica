@@ -75,7 +75,7 @@ if ("userDataStorage" in localStorage) {
         /* Layout CSS setting for courses render */
         columnLayoutCount = Math.ceil(bestSalesCoursesElement.childElementCount / 2) // => 2: number of row want to display
         bestSalesCoursesElement.classList.add("render")
-        bestSalesCoursesElement.style.gridTemplateColumns = `repeat(${columnLayoutCount}, minmax(250px, 1fr)
+        bestSalesCoursesElement.style.gridTemplateColumns = `repeat(${columnLayoutCount}, minmax(255px, 1fr)
         )`
       })
     })
