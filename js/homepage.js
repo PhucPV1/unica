@@ -73,42 +73,46 @@ if ("userDataStorage" in localStorage) {
         bestSalesCoursesElement.insertAdjacentHTML("beforeend", courseElement)
 
         /* Layout CSS setting for courses render */
-        columnLayoutCount = Math.ceil(bestSalesCoursesElement.childElementCount / 2)
+        columnLayoutCount = Math.ceil(bestSalesCoursesElement.childElementCount / 2) // => 2: number of row want to display
         bestSalesCoursesElement.classList.add("render")
         bestSalesCoursesElement.style.gridTemplateColumns = `repeat(${columnLayoutCount}, minmax(250px, 1fr)
         )`
-
-        /* Drag to scroll */
-        let isDown = false
-        let startX
-        let scrollLeft
-        bestSalesCoursesElement.addEventListener("mousedown", (e) => {
-          isDown = true
-          bestSalesCoursesElement.classList.add("grab")
-          startX = e.pageX - bestSalesCoursesElement.offsetLeft
-          scrollLeft = bestSalesCoursesElement.scrollLeft
-        })
-        bestSalesCoursesElement.addEventListener("mouseleave", () => {
-          isDown = false
-          bestSalesCoursesElement.classList.remove("grab")
-        })
-        bestSalesCoursesElement.addEventListener("mouseup", () => {
-          isDown = false
-          bestSalesCoursesElement.classList.remove("grab")
-        })
-        bestSalesCoursesElement.addEventListener("mousemove", (e) => {
-          if (!isDown) return
-          e.preventDefault()
-          const x = e.pageX - bestSalesCoursesElement.offsetLeft
-          const walk = (x - startX) * 1 //scroll-speed
-          bestSalesCoursesElement.scrollLeft = scrollLeft - walk
-        })
       })
     })
     .catch(() => {
       alert("Gặp lỗi khi nhận dữ liệu từ server, vui lòng kiểm tra kết nối mạng")
     })
 })()
+
+/* Drag to scroll */
+var grabElements = $$(".drag_to_scroll")
+let isDown = false
+let startX
+let scrollLeft
+Array.from(grabElements).map((grabElement) => {
+  grabElement.addEventListener("mousedown", (e) => {
+    isDown = true
+    grabElement.classList.add("grab")
+    startX = e.pageX - grabElement.offsetLeft
+    scrollLeft = grabElement.scrollLeft
+  })
+  grabElement.addEventListener("mouseleave", () => {
+    isDown = false
+    grabElement.classList.remove("grab")
+  })
+  grabElement.addEventListener("mouseup", () => {
+    isDown = false
+    grabElement.classList.remove("grab")
+  })
+  grabElement.addEventListener("mousemove", (e) => {
+    if (!isDown) return
+    e.preventDefault()
+    const x = e.pageX - grabElement.offsetLeft
+    const walk = (x - startX) * 1 //scroll-speed
+    grabElement.scrollLeft = scrollLeft - walk
+  })
+})
+
 /* Show menu on mobile scr */
 let menuMobileBtn = $(".menu_tablet")
 menuMobileBtn.onclick = () => {
